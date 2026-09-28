@@ -1,0 +1,103 @@
+.chatWindow{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.chatWindow-message-area{
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: rgb(143, 203, 230);
+    background-image: url('../../assets/bg-image.jpg');
+    background-repeat: repeat;
+    background-size: 20rem;
+    background-blend-mode: overlay;
+}
+
+.chatWindow__header{
+    background-color: rgb(255, 255, 255);
+    padding: 1rem;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color:#011c29;
+}
+
+
+.message{
+    max-width: 60%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.8rem;
+    word-break: break-word;
+    flex-shrink: 0;
+}
+
+.message-text{
+    margin: 0;
+}
+
+.message.incoming{
+    align-self: flex-start;
+    background-color: #fff;
+    border-bottom-left-radius: 0.2rem;
+}
+
+.message.outgoing{
+    align-self: flex-end;
+    background-color: rgb(233, 253, 255);
+    color: #011c29;
+    border-bottom-right-radius: 0.6rem;
+}
+
+.chatWindow-message-area::-webkit-scrollbar{
+    width: 6px;
+}
+
+.chatWindow-message-area::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+
+.chatWindow-message-area::-webkit-scrollbar-thumb{
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+}
+
+.chatWindow-keyboard{
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    background-color: #fff;
+}
+
+.chatWindow-keyboard input{
+    flex: 1;
+    height: 2.4rem;
+    padding-inline: 1rem;
+    border: 1px solid rgb(226, 232, 240);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+}
+
+.chatWindow-keyboard button{
+    padding-inline: 1.5rem;
+}
+
+.chatWindow-empty{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    color: rgb(104, 104, 104);
+    background-color: rgb(240, 242, 245);
+}
+

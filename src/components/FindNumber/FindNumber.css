@@ -1,0 +1,46 @@
+.number-overlay{
+    height: 100vh;
+    width: 100vw;
+    background-color:  rgb(240, 242, 245);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    background-color: rgba(11, 20, 26, 0.4); 
+    z-index: 10; 
+}
+
+.number-content{
+    max-width: 20rem;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 0.5rem;
+    border:1px rgba(226, 232, 240, 1) solid;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.number-content button{
+    background-color: rgb(0, 122, 255);
+    border-radius: 0.2rem;
+    padding-block: 0.5rem;
+    border:none;
+    border-radius: 0.4rem;
+    color:aliceblue;
+    font-family: 'Manrope';
+    font-weight: 400;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.number-content input{
+    height: 1.5rem;
+    padding-inline: 0.5rem;
+    border: 1px solid rgb(226, 232, 240);
+    border-radius: 0.2rem;
+}

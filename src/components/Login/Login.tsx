@@ -1,14 +1,28 @@
 import { useState } from 'react';
 import './Login.css'
 
-function Login () {
+interface LoginProps  {
+    onLogin: (id:string, token:string) => void;
+}
+function Login ({onLogin}:LoginProps) {
     // состояния для хранения данных из полей ввода
     const [idInstance, setIdInstance] = useState<string>('');
     const [tokentInstance, setTokenInstance] = useState<string>('');
 
+    const handleOnSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (idInstance.trim() && tokentInstance.trim()){
+            onLogin(idInstance.trim(), tokentInstance.trim());
+        }else{
+            console.error('не заполнены поля формы');
+        }
+
+    }
+
     return (
         <div className="login-overlay">
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleOnSubmit}>
                 <h3 className='form-header'>Введите свои учетные данные из системы </h3>
 
                 <div className="input-group">
@@ -35,7 +49,6 @@ function Login () {
                 <button 
                     type='submit' 
                     className='login-btn'
-                    // onClick={}
                 >
                     Войти
                 </button>
