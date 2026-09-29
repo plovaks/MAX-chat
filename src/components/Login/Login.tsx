@@ -12,13 +12,22 @@ function Login ({onLogin}:LoginProps) {
     const handleOnSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (idInstance.trim() && tokentInstance.trim()){
-            onLogin(idInstance.trim(), tokentInstance.trim());
-        }else{
-            console.error('не заполнены поля формы');
+        const cleanId = idInstance.trim();
+        const cleanToken = tokentInstance.trim();
+
+        if (!/^\d+$/.test(cleanId)) {
+            alert('idInstance должен состоять только из цифр');
+            return;
         }
 
-    }
+        if (!/^[a-f0-9]{50}$/.test(cleanToken)) {
+            alert('токен должен состоять из 50 символов');
+            return;
+        }
+
+        onLogin(cleanId, cleanToken);
+    };
+
 
     return (
         <div className="login-overlay">
@@ -41,7 +50,7 @@ function Login ({onLogin}:LoginProps) {
                         value={tokentInstance}
                         id="tokenInstance"
                         onChange={e => setTokenInstance(e.target.value)}
-                        type="text" 
+                        type="password" 
                         required
                     />
                 </div>

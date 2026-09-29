@@ -39,9 +39,10 @@ function FindNumber({ onFind, onClose }: FindNumberProps) {
                 <input
                     type="text"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ""))}
                     autoFocus
                     required
+                    placeholder="79999999999"
                 />
                 <button type="submit">Найти</button>
             </form>

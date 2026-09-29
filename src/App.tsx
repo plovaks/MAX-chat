@@ -1,3 +1,4 @@
+import { Group, Panel, Separator } from "react-resizable-panels";
 import { useState, useEffect } from 'react'
 import './App.css'
 import Login from './components/Login/Login'
@@ -39,6 +40,15 @@ function App() {
     setData({ id, token, url: API_URL });
   }
 
+  // функция обновления имени контакта в списке чатов
+  const updateChatName = (chatId: string, name?: string) => {
+      if (!name) return;
+      setChats(prev =>
+          prev.map(chat =>
+              chat.chatId === chatId && chat.title !== name ? { ...chat, title: name } : chat
+          )
+      );
+  };
   // создание чата
   const handleNewChat = async (phoneNumber: string) => {
     if (!data) return;
@@ -50,13 +60,6 @@ function App() {
           body: JSON.stringify({ phoneNumber: Number(phoneNumber) })
       });
 
-      const text = await res.text();
-      console.log('checkAccount:', res.status, text);
-
-      if (!res.ok) {
-          alert(`ошибка проверки номера (${res.status}): ${text}`);
-          return;
-      }
 
       const result = await res.json();
       
@@ -84,16 +87,27 @@ function App() {
 
   return (
     <div className='main-content'>
-      <Sidebar
-        chatsList={chats}
-        activeChat={activeChatId}
-        createChat={handleNewChat}
-        onSelectedChat={setActiveChatId}
-      />
-      <ChatWindow
-        activeChat={chats.find(c => c.chatId === activeChatId) ?? null}
-        data={data}
-      />
+
+      <Group orientation="horizontal">
+        <Panel defaultSize="30" minSize="10" maxSize="50">
+          <Sidebar
+            chatsList={chats}
+            activeChat={activeChatId}
+            createChat={handleNewChat}
+            onSelectedChat={setActiveChatId}
+          />
+        </Panel>
+        <Separator className="sidebar-resizer-line" />
+        <Panel>
+          <ChatWindow
+            activeChat={chats.find(c => c.chatId === activeChatId) ?? null}
+            data={data}
+            onContactName={updateChatName}
+          />
+        </Panel>
+        
+      </Group>
+      
     </div>
   )
 }
