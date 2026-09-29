@@ -1,75 +1,56 @@
-# React + TypeScript + Vite
+# GREEN-API Messenger MAX
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-интерфейс на React + TypeScript для отправки и получения текстовых сообщений
+в мессенджере MAX. 
 
-Currently, two official plugins are available:
+## Документация:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Сервис GREEN-API: (https://green-api.com/max)
+Отправка сообщений: https://green-api.com/v3/docs/api/sending/SendMessage/
+Получение сообщений: https://green-api.com/v3/docs/api/receiving/technology-http-api/
 
-## React Compiler
+## Стек
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- HTML, CSS
+- Vite
+- react-resizable-panels - изменяемая по ширине панель сайдбара слева 
+- Хранилище: localStorage (учётные данные, список чатов, история переписки)
 
-## Expanding the ESLint configuration
+## Что нужно перед началом использования приложения
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Зарегистрироваться в личном кабинете GREEN-API (https://console.green-api.com/),
+   создать инстанс (тариф Developer) и авторизовать его
+   в MAX по QR-коду:
+   - В приложении MAX: Профиль -> Устройства -> Войти по QR-коду
+   - В кабинете: выбрать инстанс -> Получить QR-код для авторизации -> отсканировать
+2. В настройках инстанса включить получение уведомлений:
+   - incomingWebhook: yes
+   - outgoingWebhook: yes )
+   - webhookUrl оставить пустым — приложение получает сообщения через HTTP API 
+3. Скопировать  `idInstance` и `apiTokenInstance`.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Если используется хост, отличный от `api.green-api.com`, необходимо поправить значение apiUrl в /src/App.tsx
+на значение `apiUrl` из личного кабинета.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Установка и запуск
 
+```bash
+npm install
+npm run dev
 ```
+Откройте адрес, который выведет Vite 
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Как пользоваться
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. На экране входа введите `idInstance` и `apiTokenInstance`.
+2. Нажмите **+** в списке чатов, введите номер телефона получателя номер проверяется методом CheckAccount
+3. Напишите сообщение и отправьте 
+4. После ответа собеседника на экране появится сообщение 
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 
-```
+## ограничения
+
+- Поддерживаются только текстовые сообщения 
+- История переписки хранится локально в браузере (в дальнейшем возможно получать с сервера при использовании журналов)
